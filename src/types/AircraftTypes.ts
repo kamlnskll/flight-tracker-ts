@@ -20,15 +20,27 @@ export interface AircraftState {
   }
   
   export interface OSNAPIResponse {
-    time: number;
+    time: number,
     states: AircraftState[][];
   }
   
   export interface AircraftContextProps {
-    aircraftData: AircraftState[][];
-    updateAircraftData: (data: AircraftState[][]) => void;
+    aircraftData: OSNAPIResponse | null
+    updateAircraftData: (data: OSNAPIResponse) => void;
   }
   
   export interface AircraftProviderProps {
     children: React.ReactNode;
   }
+
+  export interface IDebounce {
+    func: Function,
+    wait: number
+  }
+  
+  export interface IViewState {
+    longitude: number;
+    latitude: number;
+    zoom: number;
+  }
+  

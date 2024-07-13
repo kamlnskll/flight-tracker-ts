@@ -1,8 +1,7 @@
 import React, { createContext, useContext, useState } from 'react';
+import { AircraftState, AircraftContextProps, AircraftProviderProps, OSNAPIResponse } from '../types/AircraftTypes';
 
-import { AircraftState, AircraftContextProps, AircraftProviderProps } from '../types/AircraftTypes';
-
-export const AircraftContext = createContext<AircraftContextProps | undefined>(undefined);
+export const AircraftContext = createContext<AircraftContextProps | null>(null);
 
 export const useAircraftContext = () => {
   const context = useContext(AircraftContext);
@@ -13,9 +12,9 @@ export const useAircraftContext = () => {
 };
 
 export const AircraftProvider: React.FC<AircraftProviderProps> = ({ children }) => {
-  const [aircraftData, setAircraftData] = useState<AircraftState[][]>([]);
+  const [aircraftData, setAircraftData] = useState<OSNAPIResponse | null>(null);
 
-  const updateAircraftData = (data: AircraftState[][]) => {
+  const updateAircraftData = (data: OSNAPIResponse) => {
     setAircraftData(data);
   };
 
@@ -24,4 +23,4 @@ export const AircraftProvider: React.FC<AircraftProviderProps> = ({ children }) 
       {children}
     </AircraftContext.Provider>
   );
-};
+}
