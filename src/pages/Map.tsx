@@ -72,11 +72,24 @@ const fetchData = useCallback(() => {
 }, [apiUrl, updateAircraftData]);
 
 
+const filteredAircrafts = useMemo(() => {
+  if (!aircraftData || !aircraftData.states) {
+    return [];
+  }
+
+  return aircraftData?.states?.filter((aircraft: AircraftState[]) => {
+    const aircraftCategory = aircraft[16];
+    return typeof aircraftCategory === 'number' && aircraftCategory >= 2 && aircraftCategory <= 7 
+});
+}, [aircraftData]);
+
 
 
 
 useEffect(() => {
   fetchData(); // Call immediately on page load
+  console.log(filteredAircrafts, 'filtered Aircrafts array')
+
 
   // const interval = setInterval(() => {
   //   fetchData();
@@ -88,41 +101,28 @@ useEffect(() => {
 
 const aircraftMarkers = useMemo(() => {
     // @ts-ignore
-  return aircraftData?.states?.map((aircraft: any) => {
-    const [
-      icao24,
-      callsign,
-      origin_country,
-      time_position,
-      last_contact,
-      longitude,
-      latitude,
-      baro_altitude,
-      on_ground,
-      velocity,
-      true_track,
-      vertical_rate,
-      sensors,
-      geo_altitude,
-      squawk,
-      spi,
-      position_source,
-      category
-    ] = aircraft;
+    return filteredAircrafts?.states?.map((aircraft: any) => {
+      const {
+        icao24,
+        longitude,
+        latitude
+      } = aircraft;
 
-    if (typeof longitude === 'number' && typeof latitude === 'number') {
-      return (
-        <Marker
-          longitude={longitude}
-          latitude={latitude}
-        >
-          <img src={'src/assets/airplane-svgrepo-com.svg'} width='24' alt="airplane marker"/>
-        </Marker>
-      );
-    }
-    return null;
-  }).filter(Boolean);
-}, [aircraftData]);
+      if (typeof longitude === 'number' && typeof latitude === 'number') {
+        return (
+          <Marker
+            key={icao24}
+            longitude={longitude}
+            latitude={latitude}
+          >
+            <img src={'src/assets/airplane-svgrepo-com.svg'} width='24' alt="airplane marker" />
+          </Marker>
+        );
+      }
+      return null;
+    }).filter(Boolean);
+  }, [aircraftData]);
+
 
 return (
     <>
@@ -139,45 +139,7 @@ return (
   minZoom={1}
   maxZoom={12}
     >
-  
-    {aircraftData?.states?.map((aircraft) => {
-
-const [
-  // icao24,
-  // callsign,
-  // origin_country,
-  // time_position,
-  // last_contact,
-  longitude,
-  latitude,
-  // baro_altitude,
-  // on_ground,
-  // velocity,
-  // true_track,
-  // vertical_rate,
-  // sensors,
-  // geo_altitude,
-  // squawk,
-  // spi,
-  // position_source,
-  // category
-] = aircraft;
-
-if (typeof longitude === 'number' && typeof latitude === 'number') {
-  return (
-    <Marker
-      longitude={longitude}
-      latitude={latitude}
-    >
-      {aircraftMarkers}
-      <img src={'src/assets/airplane-svgrepo-com.svg'} width='12' />
-    </Marker>
-  );
-} else { 
-  return 
-} null
-      })}
-
+  {aircraftMarkers}
       </Map>   
       </Box>
     </>
