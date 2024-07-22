@@ -2,7 +2,8 @@ import { useCallback, useEffect } from 'react';
 import { Map, Marker } from 'react-map-gl';
 import { useAircraftContext } from '../context/AircraftContext';
 import { IDebounce, OSNAPIResponse, AircraftState } from '../types/AircraftTypes';
-import AirplanemodeActiveIcon from '@mui/icons-material/AirplanemodeActive';
+import {RemoveScroll} from 'react-remove-scroll';
+import { Box } from '@mui/material';
 
 // Environmental variables declared at top level of the map.
 
@@ -59,7 +60,8 @@ const MapPage: React.FC = () => {
   }, [fetchData]);
 
   return (
-    <>
+    <RemoveScroll>
+    <Box width={'100%'} height={'100%'}>
       <Map
         mapboxAccessToken={mapAccessToken}
         initialViewState={{
@@ -67,7 +69,7 @@ const MapPage: React.FC = () => {
           latitude: 45,
           zoom: 3,
         }}
-        style={{ width: '100vh', height: '100vh' }}
+        style={{ width: '100%', height: '100%' }}
         mapStyle="mapbox://styles/mapbox/light-v11"
         maxPitch={0}
         minZoom={1}
@@ -110,7 +112,8 @@ const MapPage: React.FC = () => {
           return null;
         })}
       </Map>
-    </>
+      </Box>
+      </RemoveScroll>
   );
 };
 
