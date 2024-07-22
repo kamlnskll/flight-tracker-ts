@@ -4,8 +4,8 @@ export interface AircraftState {
     origin_country: string;
     time_position: number | null;
     last_contact: number;
-    longitude: number | null;
-    latitude: number | null;
+    longitude: number 
+    latitude: number 
     baro_altitude: number | null;
     on_ground: boolean;
     velocity: number | null;
@@ -25,7 +25,7 @@ export interface AircraftState {
   }
   
   export interface AircraftContextProps {
-    aircraftData: OSNAPIResponse | null
+    aircraftData: OSNAPIResponse
     updateAircraftData: (data: OSNAPIResponse) => void;
   }
   
