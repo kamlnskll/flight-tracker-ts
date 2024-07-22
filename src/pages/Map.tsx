@@ -1,7 +1,8 @@
 import { useCallback, useEffect } from 'react';
 import { Map, Marker } from 'react-map-gl';
 import { useAircraftContext } from '../context/AircraftContext';
-import { IDebounce, OSNAPIResponse } from '../types/AircraftTypes';
+import { IDebounce, OSNAPIResponse, AircraftState } from '../types/AircraftTypes';
+import AirplanemodeActiveIcon from '@mui/icons-material/AirplanemodeActive';
 
 // Environmental variables declared at top level of the map.
 
@@ -67,12 +68,12 @@ const MapPage: React.FC = () => {
           zoom: 3,
         }}
         style={{ width: '100vh', height: '100vh' }}
-        mapStyle="mapbox://styles/mapbox/streets-v9"
+        mapStyle="mapbox://styles/mapbox/light-v11"
         maxPitch={0}
         minZoom={1}
         maxZoom={12}
       >
-        {aircraftData?.states?.map((aircraft: any[], index: number) => {
+        {aircraftData?.states?.map((aircraft: AircraftState[]) => {
           const [
             icao24,
             callsign,
@@ -98,10 +99,11 @@ const MapPage: React.FC = () => {
           if (typeof longitude === 'number' && typeof latitude === 'number') {
             return (
               <Marker
-                key={index}
-                longitude={longitude}
+                 longitude={longitude}
                 latitude={latitude}
-              />
+              >
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c5/Airplane_silhouette.svg" width="24" height="24"/>
+              </Marker>
             );
           }
 
