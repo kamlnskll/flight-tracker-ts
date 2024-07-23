@@ -1,4 +1,3 @@
-import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Map from './pages/Map'
 import { AircraftProvider } from './context/AircraftContext'
