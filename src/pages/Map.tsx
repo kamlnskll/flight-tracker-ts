@@ -75,7 +75,7 @@ const MapPage: React.FC = () => {
         minZoom={1}
         maxZoom={12}
       >
-        {aircraftData?.states?.map((aircraft: AircraftState[]) => {
+        {aircraftData?.states?.map((aircraft: AircraftState[]) => { 
           const [
             icao24,
             callsign,
@@ -102,9 +102,9 @@ const MapPage: React.FC = () => {
             return (
               <Marker
                  longitude={longitude}
-                latitude={latitude}
+                 latitude={latitude}
               >
-                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c5/Airplane_silhouette.svg" width="24" height="24"/>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c5/Airplane_silhouette.svg" width="16" height="16"/>
               </Marker>
             );
           }
