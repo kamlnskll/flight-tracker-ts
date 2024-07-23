@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'react';
 import { Map, Marker } from 'react-map-gl';
 import { useAircraftContext } from '../context/AircraftContext';
-import { IDebounce, OSNAPIResponse, AircraftState } from '../types/AircraftTypes';
+import { IDebounce, OSNAPIResponse, AircraftStateArray } from '../types/AircraftTypes';
 import { RemoveScroll } from 'react-remove-scroll';
 import { Box } from '@mui/material';
 
@@ -76,7 +76,7 @@ const MapPage: React.FC = () => {
         minZoom={1}
         maxZoom={12}
       >
-        {aircraftData?.states?.map((aircraft: AircraftState[]) => { 
+        {aircraftData?.states?.map((aircraft: AircraftStateArray[]) => { 
           const [
             icao24,
             callsign,
@@ -102,8 +102,9 @@ const MapPage: React.FC = () => {
           if (typeof longitude === 'number' && typeof latitude === 'number') {
             return (
               <Marker
-                 longitude={longitude}
                  latitude={latitude}
+                 longitude={longitude}
+                 
               >
                 <img src="https://upload.wikimedia.org/wikipedia/commons/c/c5/Airplane_silhouette.svg" width="16" height="16"/>
               </Marker>
