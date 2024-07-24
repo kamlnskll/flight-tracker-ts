@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
-import { AircraftState, AircraftContextProps, AircraftProviderProps, OSNAPIResponse } from '../types/AircraftTypes';
+import { AircraftStateArray, AircraftContextProps, AircraftProviderProps, OSNAPIResponse } from '../types/AircraftTypes';
 
 export const AircraftContext = createContext<AircraftContextProps | null>(null);
 

@@ -19,6 +19,8 @@ const debounce = ({ func, wait }: IDebounce): (...args: any[]) => void => {
   };
 };
 
+
+
 const fetchWithCache = async (url: string): Promise<OSNAPIResponse> => {
   // Check if the response for the given URL is already in the cache
   if (cache[url]) {
@@ -49,15 +51,32 @@ const MapPage: React.FC = () => {
       .catch((err) => console.error(err));
   }, [apiUrl, updateAircraftData]);
 
+  const filteredAircraft = aircraftData?.states?.filter((aircraft: AircraftStateArray[]) => { 
+    const longitude = aircraft[5]
+    const latitude = aircraft[6]
+    const category = aircraft[17]
+    // console.log(`Longitude: ${longitude}, Latitude: ${latitude}, Category: ${category}`);
+    return (
+      typeof category === 'number' &&
+      typeof longitude === 'number' &&
+      typeof latitude === 'number' &&
+      category >= 1
+    )
+
+  })
+
+
   useEffect(() => {
     fetchData(); // Call immediately on page load
-
+    console.log('filtered aircrafts', filteredAircraft)
     // const interval = setInterval(() => {
     //   fetchData();
     // }, 6000); // Call every 6 seconds
 
     // return () => clearInterval(interval); // Clean up on unmount
   }, [fetchData]);
+
+
 
   return (
     <RemoveScroll>
@@ -76,42 +95,20 @@ const MapPage: React.FC = () => {
         minZoom={1}
         maxZoom={12}
       >
-        {aircraftData?.states?.map((aircraft: AircraftStateArray[]) => { 
-          const [
-            icao24,
-            callsign,
-            origin_country,
-            time_position,
-            last_contact,
-            longitude,
-            latitude,
-            baro_altitude,
-            on_ground,
-            velocity,
-            true_track,
-            vertical_rate,
-            sensors,
-            geo_altitude,
-            squawk,
-            spi,
-            position_source,
-            category
-          ] = aircraft;
+  
+        {filteredAircraft.map((aircraft) => {
+    const longitude = aircraft[5]
+    const latitude = aircraft[6]
 
-          // Ensure longitude and latitude are numbers
-          if (typeof longitude === 'number' && typeof latitude === 'number') {
-            return (
-              <Marker
-                 latitude={latitude}
-                 longitude={longitude}
-                 
-              >
-                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c5/Airplane_silhouette.svg" width="16" height="16"/>
-              </Marker>
-            );
-          }
+          return (
+            <Marker
+            latitude={latitude}
+            longitude={longitude}
+            >
 
-          return null;
+            </Marker>
+          )
+
         })}
       </Map>
       </Box>
