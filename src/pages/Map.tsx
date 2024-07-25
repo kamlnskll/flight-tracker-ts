@@ -1,9 +1,11 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Map, Marker } from 'react-map-gl';
 import { useAircraftContext } from '../context/AircraftContext';
 import { IDebounce, OSNAPIResponse, AircraftStateArray } from '../types/AircraftTypes';
 import { RemoveScroll } from 'react-remove-scroll';
+import AirplanemodeActiveIcon from '@mui/icons-material/AirplanemodeActive';
 import { Box } from '@mui/material';
+import AircraftDataCard from '../components/AircraftDataCard';
 
 // Environmental variables declared at top level of the map.
 
@@ -40,7 +42,12 @@ const fetchWithCache = async (url: string): Promise<OSNAPIResponse> => {
 };
 
 const MapPage: React.FC = () => {
+  
+  
   const { aircraftData, updateAircraftData } = useAircraftContext();
+  const [ focusedAircraft, setFocusedAircraft] = useState([])
+
+
 
   const fetchData = useCallback(() => {
     fetchWithCache(apiUrl)
@@ -68,7 +75,6 @@ const MapPage: React.FC = () => {
 
   useEffect(() => {
     fetchData(); // Call immediately on page load
-    console.log('filtered aircrafts', filteredAircraft)
     // const interval = setInterval(() => {
     //   fetchData();
     // }, 6000); // Call every 6 seconds
@@ -89,28 +95,32 @@ const MapPage: React.FC = () => {
           latitude: 45,
           zoom: 3,
         }}
-        style={{ width: '100%', height: '100%'}}
+        style={{ width: '100%', height: '80%'}}
         mapStyle="mapbox://styles/mapbox/light-v11"
         maxPitch={0}
         minZoom={1}
         maxZoom={12}
       >
   
-        {filteredAircraft.map((aircraft) => {
+        {filteredAircraft?.map((aircraft: any) => {
     const longitude = aircraft[5]
     const latitude = aircraft[6]
+    const trueTrack = aircraft[10]
 
           return (
             <Marker
             latitude={latitude}
             longitude={longitude}
+            onClick={() => { setFocusedAircraft(aircraft)
+            console.log(focusedAircraft)}}
             >
-
-            </Marker>
+                <AirplanemodeActiveIcon sx={{ transform: `rotate(${trueTrack}deg)`, cursor: 'pointer' }}/>            </Marker>
           )
 
         })}
       </Map>
+          {/* @ts-ignore */}
+          <AircraftDataCard aircraftData={focusedAircraft}/>
       </Box>
       </RemoveScroll>
   );
