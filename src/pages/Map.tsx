@@ -6,6 +6,8 @@ import { RemoveScroll } from 'react-remove-scroll';
 import AirplanemodeActiveIcon from '@mui/icons-material/AirplanemodeActive';
 import { Box } from '@mui/material';
 import AircraftDataCard from '../components/AircraftDataCard';
+import 'react-flagpack/dist/style.css'
+
 
 // Environmental variables declared at top level of the map.
 
