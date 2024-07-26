@@ -66,13 +66,20 @@ const AircraftDataCard = ({ aircraftData }: Props) => {
                 style={{
                     width: '1.3em',
                     height: '1.3em',
+                    marginLeft: '1em',
+                    marginTop: '0.3em'
                 }}
                 title="US"
             />
             </Box>
-        <Typography variant="body2" color="text.secondary">
-          {baro_altitude}
-          {countryCode}
+        <Typography variant="body1" color="text.secondary">
+          Altitude: {typeof baro_altitude === 'number' ? (baro_altitude * 1).toFixed(0) : 'N/A'} meters
+        </Typography>
+        <Typography variant="body1" color="text.secondary">
+          Velocity: {typeof velocity === 'number' ? (velocity * 3.6).toFixed(0) : 'N/A'} km/hr
+        </Typography>
+        <Typography variant="body1" color="text.secondary">
+          Climb Rate: {vertical_rate} m/s
         </Typography>
         </CardContent>
     </Card>
