@@ -97,7 +97,7 @@ const MapPage: React.FC = () => {
           latitude: 45,
           zoom: 3,
         }}
-        style={{ width: '70%', height: '60%'}}
+        style={{ width: '70%', height: '60%', borderRadius: '10px'}}
         mapStyle="mapbox://styles/mapbox/light-v11"
         maxPitch={0}
         minZoom={1}

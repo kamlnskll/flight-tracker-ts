@@ -1,5 +1,3 @@
-@import 'react-flagpack/dist/style.css';
-
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -29,6 +27,14 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: #f2f2fa;
+background-image:  radial-gradient(
+  ellipse farthest-corner at 16px 16px,
+  rgba(255, 255, 255, 0.25), /* Lower opacity for the white part */
+  rgba(255, 255, 255, 0.25) 50%, /* Ensure consistency within the gradient */
+  rgba(242, 242, 250, 0.25) 50% /* Lower opacity for the #f2f2fa part */
+);
+background-size: 16px 16px;
 }
 
 h1 {
