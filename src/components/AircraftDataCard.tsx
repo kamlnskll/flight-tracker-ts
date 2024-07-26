@@ -53,10 +53,10 @@ const AircraftDataCard = ({ aircraftData }: Props) => {
 
 
   return (
-    <Box>
+    <Box width='25%'>
     <Card>
         <CardContent>
-          <Box>
+          <Box sx={{display: 'flex'}}>
         <Typography gutterBottom variant="h5">
             {callsign}        
         </Typography>
