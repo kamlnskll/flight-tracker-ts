@@ -1,12 +1,14 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Map, Marker } from 'react-map-gl';
 import { useAircraftContext } from '../context/AircraftContext';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { IDebounce, OSNAPIResponse, AircraftStateArray } from '../types/AircraftTypes';
 import { RemoveScroll } from 'react-remove-scroll';
 import AirplanemodeActiveIcon from '@mui/icons-material/AirplanemodeActive';
 import { Box } from '@mui/material';
 import AircraftDataCard from '../components/AircraftDataCard';
 import 'react-flagpack/dist/style.css'
+import InfoModal from '../components/InfoModal';
 
 
 // Environmental variables declared at top level of the map.
@@ -89,7 +91,10 @@ const MapPage: React.FC = () => {
   return (
     <RemoveScroll>
     <Box width={'100vw'} height={'100vh'} position={'relative'} display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'}>
-    <h2 style={{position: 'absolute', top: 2, zIndex: 1, left: '2%'}}>Flight Tracker</h2>
+    <div style={{position: 'absolute', top: 2, zIndex: 1, left: '2%', display: 'flex'}}>
+    <h2>Flight Tracker</h2>
+    <InfoModal />
+    </div>
       <Map
         mapboxAccessToken={mapAccessToken}
         initialViewState={{
@@ -116,7 +121,11 @@ const MapPage: React.FC = () => {
             onClick={() => { setFocusedAircraft(aircraft)
             console.log(focusedAircraft)}}
             >
-                <AirplanemodeActiveIcon sx={{ transform: `rotate(${trueTrack}deg)`, cursor: 'pointer' }}/>            </Marker>
+                <AirplanemodeActiveIcon sx={{ 
+                  transform: `rotate(${trueTrack}deg)`, 
+                  cursor: 'pointer',
+                  color: focusedAircraft === aircraft ? 'blue' : 'inherit',
+                }}/>            </Marker>
           )
 
         })}
