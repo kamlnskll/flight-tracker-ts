@@ -88,7 +88,7 @@ const MapPage: React.FC = () => {
 
   return (
     <RemoveScroll>
-    <Box width={'100vw'} height={'100vh'} position={'relative'}>
+    <Box width={'100vw'} height={'100vh'} position={'relative'} display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'}>
     <h2 style={{position: 'absolute', top: 2, zIndex: 1, left: '2%'}}>Flight Tracker</h2>
       <Map
         mapboxAccessToken={mapAccessToken}
@@ -97,7 +97,7 @@ const MapPage: React.FC = () => {
           latitude: 45,
           zoom: 3,
         }}
-        style={{ width: '100%', height: '80%'}}
+        style={{ width: '70%', height: '60%'}}
         mapStyle="mapbox://styles/mapbox/light-v11"
         maxPitch={0}
         minZoom={1}

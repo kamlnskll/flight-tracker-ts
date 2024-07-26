@@ -53,7 +53,7 @@ const AircraftDataCard = ({ aircraftData }: Props) => {
 
 
   return (
-    <Box width='25%'>
+    <Box width='25%' marginTop={'25px'}>
     <Card>
         <CardContent>
           <Box sx={{display: 'flex'}}>
