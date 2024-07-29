@@ -1,4 +1,6 @@
 import { Box, Card, CardContent, Typography } from '@mui/material'
+import ClearIcon from '@mui/icons-material/Clear';
+import MyLocationIcon from '@mui/icons-material/MyLocation';
 import Flag from 'react-flagpack'
 import React, { useEffect, useState } from 'react'
 import { AircraftStateArray } from '../types/AircraftTypes'
@@ -6,6 +8,7 @@ import * as countries from 'i18n-iso-countries'
 import enLocale from 'i18n-iso-countries/langs/en.json';
 import 'react-flagpack/dist/style.css';
 import ReactCountryFlag from 'react-country-flag'
+import IconButton from '@mui/material';
 
 
 type Props = {
@@ -54,7 +57,9 @@ const AircraftDataCard = ({ aircraftData }: Props) => {
 
   return (
     <Box width='25%' marginTop={'25px'}>
-    <Card>
+      { aircraftData.length > 1 ? (
+        (
+<Card>
         <CardContent>
           <Box sx={{display: 'flex'}}>
         <Typography gutterBottom variant="h5">
@@ -71,6 +76,7 @@ const AircraftDataCard = ({ aircraftData }: Props) => {
                 }}
                 title="US"
             />
+            <MyLocationIcon sx={{marginLeft: '20px'}}/>
             </Box>
         <Typography variant="body1" color="text.secondary">
           Altitude: {typeof baro_altitude === 'number' ? (baro_altitude * 1).toFixed(0) : 'N/A'} meters
@@ -81,10 +87,18 @@ const AircraftDataCard = ({ aircraftData }: Props) => {
         <Typography variant="body1" color="text.secondary">
           Climb Rate: {vertical_rate} m/s
         </Typography>
+        {/* <IconButton aria-label="delete" disabled color="primary">
+  <ClearIcon />
+</IconButton> */}
         </CardContent>
     </Card>
 
-
+        )
+      ) : (
+        null
+      )
+      }
+  
     </Box>
   )
 }
