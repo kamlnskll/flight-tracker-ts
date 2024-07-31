@@ -9,6 +9,7 @@ import { Box } from '@mui/material';
 import AircraftDataCard from '../components/AircraftDataCard';
 import 'react-flagpack/dist/style.css'
 import InfoModal from '../components/InfoModal';
+import '../styles/Map.css'
 
 
 // Environmental variables declared at top level of the map.
@@ -121,10 +122,10 @@ const MapPage: React.FC = () => {
             onClick={() => { setFocusedAircraft(aircraft)
             console.log(focusedAircraft)}}
             >
-                <AirplanemodeActiveIcon sx={{ 
+                <AirplanemodeActiveIcon className='planeIcon' sx={{ 
                   transform: `rotate(${trueTrack}deg)`, 
                   cursor: 'pointer',
-                  color: focusedAircraft === aircraft ? 'blue' : 'inherit',
+                  color: focusedAircraft === aircraft ? 'orange' : 'inherit',
                 }}/>            </Marker>
           )
 

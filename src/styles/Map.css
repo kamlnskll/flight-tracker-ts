@@ -1,0 +1,9 @@
+.planeIcon {
+    color: orange;
+    cursor: pointer;
+}
+
+.planeIcon:hover {
+    color: blue  ;
+    cursor: pointer;
+}
