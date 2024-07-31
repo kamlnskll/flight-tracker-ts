@@ -8,7 +8,6 @@ function App() {
   return (
     <>
     <AircraftProvider>
-    <ThemeProvider theme={'normal'}>
 
       <BrowserRouter>
             <Routes>
@@ -17,7 +16,6 @@ function App() {
                 <Route path="*" element={<NotFound />} /> */}
             </Routes>
         </BrowserRouter>
-        </ThemeProvider>
        </AircraftProvider>
     </>
   )
